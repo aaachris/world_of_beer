@@ -9,7 +9,7 @@ part of 'api_client.dart';
 class _ApiClient implements ApiClient {
   _ApiClient(this._dio, {this.baseUrl}) {
     ArgumentError.checkNotNull(_dio, '_dio');
-    baseUrl ??= 'https://api.punkapi.com/v2/';
+    baseUrl ??= 'https://beer-workshop-dev.allaboutapps.at/api/v1/';
   }
 
   final Dio _dio;
@@ -57,6 +57,46 @@ class _ApiClient implements ApiClient {
     var value = _result.data
         .map((dynamic i) => Beer.fromJson(i as Map<String, dynamic>))
         .toList();
+    return value;
+  }
+
+  @override
+  Future<PostLoginResponse> register(payload) async {
+    ArgumentError.checkNotNull(payload, 'payload');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(payload?.toJson() ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('/auth/register',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = PostLoginResponse.fromJson(_result.data);
+    return value;
+  }
+
+  @override
+  Future<PostLoginResponse> login(payload) async {
+    ArgumentError.checkNotNull(payload, 'payload');
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(payload?.toJson() ?? <String, dynamic>{});
+    _data.removeWhere((k, v) => v == null);
+    final _result = await _dio.request<Map<String, dynamic>>('/auth/login',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'POST',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = PostLoginResponse.fromJson(_result.data);
     return value;
   }
 }

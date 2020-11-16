@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:world_of_beer/app/common/transparent_image.dart';
+import 'package:world_of_beer/app/features/auth/auth_controller.dart';
 import 'package:world_of_beer/app/features/home/home_controller.dart';
 import 'package:world_of_beer/app/routes/app_pages.dart';
 
@@ -10,6 +11,16 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
         appBar: AppBar(
           title: Text('Beers'),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.logout,
+              ),
+              onPressed: () {
+                AuthController.to.onSignOut();
+              },
+            )
+          ],
         ),
         body: Obx(() {
           final res = controller.resBeers.value;
