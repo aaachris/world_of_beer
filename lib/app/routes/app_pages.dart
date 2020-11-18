@@ -7,12 +7,15 @@ import 'package:world_of_beer/app/features/detail/detail_binding.dart';
 import 'package:world_of_beer/app/features/detail/detail_view.dart';
 import 'package:world_of_beer/app/features/home/home_binding.dart';
 import 'package:world_of_beer/app/features/home/home_view.dart';
+import 'package:world_of_beer/app/features/map/map_binding.dart';
+import 'package:world_of_beer/app/features/map/map_view.dart';
 
 class AppPages {
   static const HOME = "/";
   static const DETAIL = "/detail";
   static const REGISTER = "/register";
   static const LOGIN = "/login";
+  static const MAP = "/map";
 
   static final routes = [
     GetPage(
@@ -34,6 +37,11 @@ class AppPages {
       name: LOGIN,
       page: () => LoginView(),
       binding: LoginBinding(),
+    ),
+    GetPage(
+      name: MAP,
+      page: () => MapView(),
+      binding: MapBinding()
     ),
   ];
 }
